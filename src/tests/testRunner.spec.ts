@@ -17,7 +17,12 @@ steps.forEach((step, stepIndex) => {
             const testCaseTitle = FormatTestCaseName(stepNbr, testCaseNbr, testCase, step.TargetFunctionName);
 
             let targetCode = rewire(solutionFilePath);
-            let targetFunction = targetCode.__get__(step.TargetFunctionName);
+            let targetFunction: Function;
+            try {
+                targetFunction = targetCode.__get__(step.TargetFunctionName);
+            } catch (err) {
+
+            }
 
             if ("Error" in testCase) {
                 it(testCaseTitle, (done) => {
@@ -34,7 +39,7 @@ steps.forEach((step, stepIndex) => {
                 }); 
             } else {
                 it(testCaseTitle, () => {
-                    expect(targetFunction).to.not.be.undefined;
+                    assert.isOk(targetFunction, `could not find a function with the name '${step.TargetFunctionName}'`);
                     assert.isFunction(targetFunction);
                     let args = Array.isArray(testCase.Input) ? [...testCase.Input] : [testCase.Input];
 

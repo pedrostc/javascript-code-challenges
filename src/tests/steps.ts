@@ -2,93 +2,54 @@ import { IChallengeStep } from "./utils";
 
 export const steps: IChallengeStep[] = [
     {
-        Title: "given an empty string should return. add(\"\") = 0",
-        TestCases: [{ Input: "", Expected: 0 }]
-    },
-    {
-        Title: "given a string with a single value should return the same value",
+        Title: "Create a function called 'myFunction' that receives no arguments and returns the string 'Hi'.",
+        TargetFunctionName: "myFunction",
+        TestCases: [{ Input: "N/A", Expected: "Hi" }]
+    }, {
+        Title: "Create a function called 'greet' that receives a 'name' argument and returns the string 'Hello {name}!', where {name} is the function argument.",
+        TargetFunctionName: "greet",
         TestCases: [
-            { Input: "0", Expected: 0 },
-            { Input: "5", Expected: 5 },
-            { Input: "42", Expected: 42 }
+            { Input: "World", Expected: "Hello World!" },
+            { Input: "Code", Expected: "Hello Code!" },
+            { Input: "Code!", Expected: "Hello Code!!" }
         ]
-    },
-    {
-        Title: "given a string with two comma separated values should return the sum of them",
+    }, {
+        Title: "Create a function called 'sum' that receives 2 numbers as arguments and returns their sum, also another number.",
+        TargetFunctionName: "sum",
         TestCases: [
-            { Input: "1,1", Expected: 2 },
-            { Input: "20,22", Expected: 42 },
+            { Input: [1, 1], Expected: 2 },
+            { Input: [3, 4], Expected: 7 },
+            { Input: [10, 100], Expected: 110 },
+            { Input: [32, 10], Expected: 42 }
         ]
-    },
-    {
-        Title: "given a string with N comma separated values should return the sum of all of them",
+    }, {
+        Title: "Create a function called 'subtract' that receives 2 numbers as arguments and subtracts the second from the first and returns the result, also another number.",
+        TargetFunctionName: "subtract",
         TestCases: [
-            { Input: "1,2,3", Expected: 6 },
-            { Input: "1,2,3,4,5", Expected: 15 },
-            { Input: "4,6,3,7,12,1,9", Expected: 42 },
-            { Input: "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1", Expected: 100 },
+            { Input: [1, 1], Expected: 0 },
+            { Input: [3, 4], Expected: -1 },
+            { Input: [1000, 10], Expected: 990 },
+            { Input: [52, 10], Expected: 42 },
+            { Input: [10, 52], Expected: -42 }
         ]
-    },
-    {
-        Title: "should accept either commas and/or new lines ('\\n') as value separators.",
+    }, {
+        Title: "Create a function called 'sortNumbersAsc' that receives an array of numbers as argument and return them sorted in ASCENDING order.",
+        TargetFunctionName: "sortNumbersAsc",
         TestCases: [
-            { Input: "1\n2,3", Expected: 6 },
-            { Input: "4\n2\n7", Expected: 13 },
-            { Input: "1,2\n3\n4,5", Expected: 15 },
-            { Input: "4\n6\n3,7,1,1\n1,1\n8,1\n9", Expected: 42 },
+            { Input: [[1, 0]], Expected: [0, 1] },
+            { Input: [[3, 3, 3]], Expected: [3, 3, 3] },
+            { Input: [[1, 0, 6, -10, -3]], Expected: [-10, -3, 0, 1, 6] },
+            { Input: [[-10, -2, 0, 2, 10]], Expected: [-10, -2, 0, 2, 10] },
         ]
-    },
-    {
-        Title: "should also support any 1 char user defined symbol delimiter using this format: '//(delimiter)\\n(numbers…)'.",
+    }, {
+        Title: "Create a function called 'sortNumbersDesc' that receives an array of numbers as argument and return them sorted in DESCENDING order.",
+        TargetFunctionName: "sortNumbersDesc",
         TestCases: [
-            { Input: "//;\n1;2;3", Expected: 6 },
-            { Input: "//-\n1-2-3-4-5", Expected: 15 },
-            { Input: "///\n4/6/3/7/1/1/1/1/8/1/9", Expected: 42 },
-            { Input: "//&\n1&1&1&1&1&1", Expected: 6 },
-        ]
-    },
-    {
-        Title: "should not accept negative numbers, throwing an error specifying the problematic numbers.",
-        TestCases: [
-            { Input: "1,-2", Error: "negatives not allowed: -2" },
-            { Input: "-1\n-2,3,-4", Error: "negatives not allowed: -1,-2,-4" },
-            { Input: "///\n-4/6/3/-7/1/-1/1/-1/8/1/9", Error: "negatives not allowed: -4,-7,-1,-1" },
-            { Input: "//*\n-1*-2*-10", Error: "negatives not allowed: -1,-2,-10" },
-        ]
-    },
-    {
-        Title: "should ignore (not add) numbers greater than 1000.",
-        TestCases: [
-            { Input: "1001,2", Expected: 2 },
-            { Input: "1000,2", Expected: 1002 },
-            { Input: "///\n2000/6/1/1/1234/5/3000/8/1/9", Expected: 31 },
-            { Input: "1\n2000,1\n10", Expected: 12 },
-        ]
-    },
-    {
-        Title: "should accept multi-character custom delimiter using this format: '//[delimiter]\\n(numbers…)'.",
-        TestCases: [
-            { Input: "//[;;;]\n1;;;2;;;3", Expected: 6 },
-            { Input: "//[-_-]\n1-_-2-_-3-_-4-_-5", Expected: 15 },
-            { Input: "//[//]\n4//6//3//7//1//1//1//1//8//1//9", Expected: 42 },
-            { Input: "//[&.?!]\n1&.?!1&.?!1&.?!1&.?!1&.?!1", Expected: 6 },
-        ]
-    },
-    {
-        Title: "should allow multiple single character delimiters using this format: '//[delim1][delim2]...\\n(numbers…)'.",
-        TestCases: [
-            { Input: "//[;][*]\n1;2*3", Expected: 6 },
-            { Input: "//[/][*]\n1/2/3**4/5", Expected: 15 },
-            { Input: "//[:][_][^][-]\n4:6-3-7_1-1^1:1_8^1^9", Expected: 42 },
-            { Input: "//[+][*][^]\n1^1+1^1*1*1", Expected: 6 },
-        ]
-    },
-    {
-        Title: "should allow multiple multi-characters delimiters using this format: '//[delim1][delim2]...\\n(numbers…)'.",
-        TestCases: [
-            { Input: "//[**][;]\n1;2**3", Expected: 6 },
-            { Input: "//[//][***]\n1//2//3***4//5", Expected: 15 },
-            { Input: "//[:)][:(]\n4:)6:(3:(7:)1:)1:)1:(1:)8:)1:)9", Expected: 42 },
+            { Input: [[0, 1]], Expected: [1, 0] },
+            { Input: [[3, 3, 3]], Expected: [3, 3, 3] },
+            { Input: [[1, 0, 6, -10, -3]], Expected: [6, 1, 0, -3, -10] },
+            { Input: [[-10, -2, 0, 2, 10]], Expected: [10, 2, 0, -2, -10] },
+            { Input: [[30, 3, 0, -3, -30]], Expected: [30, 3, 0, -3, -30] },
         ]
     },
 ];

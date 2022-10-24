@@ -1,10 +1,12 @@
 import 'mocha';
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 
 import { FormatTestCaseName } from "./utils";
 import { steps } from "./steps";
 
-import { add } from "../calculator";
+const rewire = require("rewire");
+const solutionFilePath = "../myCode";
+
 
 steps.forEach((step, stepIndex) => {
     const stepNbr = stepIndex + 1;
@@ -12,14 +14,17 @@ steps.forEach((step, stepIndex) => {
     describe(`Step ${stepNbr} - ${step.Title}`, () => {
         step.TestCases.forEach((testCase, testCaseIndex) => {
             const testCaseNbr = testCaseIndex + 1;
-            const testCaseTitle = FormatTestCaseName(stepNbr, testCaseNbr, testCase);
+            const testCaseTitle = FormatTestCaseName(stepNbr, testCaseNbr, testCase, step.TargetFunctionName);
+
+            let targetCode = rewire(solutionFilePath);
+            let targetFunction = targetCode.__get__(step.TargetFunctionName);
 
             if ("Error" in testCase) {
                 it(testCaseTitle, (done) => {
                     // using the try/catch approach to assert on errors so we can give more feedback to the dev
                     let result;
                     try {
-                        result = add(testCase.Input);
+                        result = targetFunction(testCase.Input);
                     } catch(error) {
                         expect(error.message).to.equal(testCase.Error, "The error was thrown but its message does not match the expected result.");
                         done();
@@ -29,7 +34,12 @@ steps.forEach((step, stepIndex) => {
                 }); 
             } else {
                 it(testCaseTitle, () => {
-                    expect(add(testCase.Input)).to.equal(testCase.Expected);
+                    expect(targetFunction).to.not.be.undefined;
+                    assert.isFunction(targetFunction);
+                    let args = Array.isArray(testCase.Input) ? [...testCase.Input] : [testCase.Input];
+
+                    let result = targetFunction(...args);
+                    expect(result).to.eql(testCase.Expected);
                 });
             }
         });

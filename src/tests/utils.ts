@@ -1,5 +1,5 @@
-export function FormatTestCaseName(stepNbr: number, testCaseNbr: number, testCase: TestCase): string {
-    return `Test Case ${stepNbr}.${testCaseNbr} - input: "${escapeNewLines(testCase.Input)}"; ${formatTestCaseExpectedText(testCase)}`;
+export function FormatTestCaseName(stepNbr: number, testCaseNbr: number, testCase: TestCase, targetFunctionName: string): string {
+    return `Test Case ${stepNbr}.${testCaseNbr} - function: "${targetFunctionName}"; input: "${testCase.Input}"; ${formatTestCaseExpectedText(testCase)}`;
 }
 
 function escapeNewLines(text: string): string {
@@ -18,12 +18,13 @@ function formatTestCaseExpectedText(testCase: TestCase): string {
 export interface IChallengeStep {
     Title: string;
     TestCases: TestCase[];
+    TargetFunctionName: string;
 }
 
 export type TestCase = IErrorTestCase | IValueTestCase;
 
 interface IBaseTestCase {
-    Input: string;
+    Input: any;
 }
 
 export interface IErrorTestCase extends IBaseTestCase {
@@ -31,5 +32,5 @@ export interface IErrorTestCase extends IBaseTestCase {
 }
 
 export interface IValueTestCase extends IBaseTestCase {
-    Expected: number;
+    Expected: number | string | Array<any>;
 }

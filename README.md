@@ -2,6 +2,7 @@
 
 Here you'll find some code challenges to exercise some JS base concepts, like creating functions, concatenating strings, sorting, etc.
 For more informations on the challenges and how to proceed please check the [CHALLENGE.md file.](CHALLENGE.md)
+This repo works best on Visual Studio Code.
 
 ## Table of contents
 - [Getting started with this repository](#getting-started-with-this-repository)

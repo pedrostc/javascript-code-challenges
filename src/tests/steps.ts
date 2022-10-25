@@ -51,5 +51,14 @@ export const steps: IChallengeStep[] = [
             { Input: [[-10, -2, 0, 2, 10]], Expected: [10, 2, 0, -2, -10] },
             { Input: [[30, 3, 0, -3, -30]], Expected: [30, 3, 0, -3, -30] },
         ]
+    }, {
+        Title: "Create a function called 'filterGreaterThan10' that receives an array of numbers as argument and returns an array with all number greater than 10 in that array. If none, it should return an empty array.",
+        TargetFunctionName: "filterGreaterThan10",
+        TestCases: [
+            { Input: [[10, 11]], Expected: [11] },
+            { Input: [[3, 30, -3]], Expected: [30] },
+            { Input: [[10, 100, 1000, -100, -10]], Expected: [100, 1000] },
+            { Input: [[10, 1, 2, -3]], Expected: [] },
+        ]
     },
 ];

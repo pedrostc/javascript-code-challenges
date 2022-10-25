@@ -14,7 +14,7 @@ export const steps: IChallengeStep[] = [
             { Input: "Code!", Expected: "Hello Code!!" }
         ]
     }, {
-        Title: "Create a function called 'sum' that receives 2 numbers as arguments and returns their sum, also another number.",
+        Title: "Create a function called 'sum' that receives 2 numbers as arguments and returns their sum.",
         TargetFunctionName: "sum",
         TestCases: [
             { Input: [1, 1], Expected: 2 },
@@ -23,7 +23,7 @@ export const steps: IChallengeStep[] = [
             { Input: [32, 10], Expected: 42 }
         ]
     }, {
-        Title: "Create a function called 'subtract' that receives 2 numbers as arguments and subtracts the second from the first and returns the result, also another number.",
+        Title: "Create a function called 'subtract' that receives 2 numbers as arguments and subtracts the second from the first and returns the result.",
         TargetFunctionName: "subtract",
         TestCases: [
             { Input: [1, 1], Expected: 0 },
